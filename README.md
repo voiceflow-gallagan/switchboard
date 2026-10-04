@@ -90,6 +90,10 @@ These show the fixture home with invented memory and disk figures, not data from
 
 ![The Add server sheet: a local command, an environment variable with its value hidden, and a preview of what will be written.](docs/screenshots/add-server.png)
 
+## How releases are made
+
+Development happens in a private repository. It also holds the design documents. The `main` branch of this repository receives published snapshots, made by a script that lives in the private repository. A release is cut with `Tools/release.sh <version>`. It builds, signs with a Developer ID, notarizes, staples, and attaches the zip to a GitHub release here. Publish first, then release.
+
 ## Known limits
 
 - A very small window remains in which a write by a running Claude Code session to the same file could be overwritten. The earlier state is in the backup.
