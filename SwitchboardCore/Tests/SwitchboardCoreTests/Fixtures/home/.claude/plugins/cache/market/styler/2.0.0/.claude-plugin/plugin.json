@@ -1,0 +1,1 @@
+{ "name": "styler", "version": "2.0.0", "mcpServers": { "styler-server": { "command": "npx", "args": ["-y", "styler-mcp@2"] } }, "skills": "./extra" }

@@ -1,0 +1,3 @@
+{ "name": "weather-ext", "display_name": "Weather", "version": "1.0.0",
+  "server": { "type": "node", "entry_point": "index.js",
+    "mcp_config": { "command": "node", "args": ["${__dirname}/index.js"], "env": { "WEATHER_KEY": "${user_config.key}" } } } }

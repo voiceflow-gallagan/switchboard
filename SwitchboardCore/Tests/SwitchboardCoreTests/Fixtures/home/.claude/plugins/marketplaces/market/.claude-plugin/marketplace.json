@@ -1,0 +1,1 @@
+{ "name": "market", "plugins": [{ "name": "helper", "source": "./helper", "skills": ["./declared/lone-skill"] }] }

@@ -1,0 +1,6 @@
+// Signing settings shared by every build of the app target.
+// The Apple developer team is not stored in the project file. Each developer
+// sets DEVELOPMENT_TEAM in Config/Local.xcconfig, which git ignores.
+// Copy Config/Local.xcconfig.example to Config/Local.xcconfig and edit it.
+
+#include? "Local.xcconfig"

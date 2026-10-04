@@ -1,0 +1,198 @@
+{
+  "numStartups": 12,
+  "claudeAiMcpEverConnected": [
+    "claude.ai Linear",
+    "claude.ai Gmail",
+    "Gmail"
+  ],
+  "mcpServers": {
+    "notes": {
+      "type": "http",
+      "url": "https://notes.example.test/mcp",
+      "headers": {
+        "Authorization": "Bearer SWB-FAKE-SECRET-0000"
+      },
+      "env": {
+        "NOTES_TOKEN": "SWB-FAKE-SECRET-kept-code"
+      }
+    },
+    "files": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@acme/files-server@latest",
+        "/srv/share"
+      ],
+      "env": {}
+    },
+    "search": {
+      "type": "sse",
+      "url": "https://reader:SWB-FAKE-SECRET-0000@search.example.test/sse?api_key=SWB-FAKE-SECRET-0000"
+    },
+    "tracker": {
+      "command": "node",
+      "args": [
+        "/opt/other-tracker.js"
+      ]
+    },
+    "path-secret": {
+      "type": "http",
+      "url": "https://paths.example.test/mcp/SWB-FAKE-SECRET-path"
+    },
+    "env-wrapper": {
+      "command": "/usr/bin/env",
+      "args": [
+        "API_KEY=SWB-FAKE-SECRET-env",
+        "node",
+        "server.js"
+      ]
+    },
+    "bash-wrapper": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "export TOKEN=SWB-FAKE-SECRET-bash && run-server"
+      ]
+    },
+    "positional": {
+      "command": "token-server",
+      "args": [
+        "SWB-FAKE-SECRET-positional"
+      ]
+    },
+    "odd-flags": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--pat",
+        "SWB-FAKE-SECRET-pat",
+        "--pat=SWB-FAKE-SECRET-pat2",
+        "-p",
+        "SWB-FAKE-SECRET-p",
+        "-H",
+        "X-Api-Key: SWB-FAKE-SECRET-h",
+        "--bearer",
+        "SWB-FAKE-SECRET-bearer",
+        "--connection-string=Server=db;Password=SWB-FAKE-SECRET-conn",
+        "--build-arg",
+        "TOKEN=SWB-FAKE-SECRET-build",
+        "--ENV",
+        "K=SWB-FAKE-SECRET-ENV",
+        "acme/odd"
+      ]
+    },
+    "basic-auth": {
+      "command": "mcp-remote",
+      "args": [
+        "https://basic.example.test/mcp",
+        "--header",
+        "Authorization: Basic SWB-FAKE-SECRET-basic"
+      ]
+    },
+    "hash-password": {
+      "type": "http",
+      "url": "postgres://reader:SWB-FAKE-SECRET-hash#x@db.example.test/main"
+    },
+    "question-password": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://user:SWB-FAKE-SECRET-question?q@hub.example.test/mcp"
+      ]
+    },
+    "no-scheme-query": {
+      "url": "host.example.test:5432/db?password=SWB-FAKE-SECRET-query"
+    },
+    "no-scheme-user": {
+      "url": "user:SWB-FAKE-SECRET-user@nohost.example.test/db"
+    },
+    "empty-one": {},
+    "empty-two": {
+      "type": "stdio"
+    },
+    "hyphen-value": {
+      "command": "db-tool",
+      "args": [
+        "--password",
+        "-SWB-FAKE-SECRET-hyphen"
+      ]
+    },
+    "split-header": {
+      "command": "proxy-tool",
+      "args": [
+        "--header",
+        "Authorization:",
+        "Bearer",
+        "SWB-FAKE-SECRET-split"
+      ]
+    },
+    "attached-env": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-eAPI=SWB-FAKE-SECRET-attached",
+        "acme/x"
+      ]
+    },
+    "command-args": {
+      "command": "node server.js --token SWB-FAKE-SECRET-command"
+    },
+    "basic-h": {
+      "command": "curl-mcp",
+      "args": [
+        "-H",
+        "Authorization: Basic SWB-FAKE-SECRET-basich"
+      ]
+    }
+  },
+  "projects": {
+    "__HOME__/work/alpha": {
+      "allowedTools": [],
+      "mcpServers": {
+        "local-db": {
+          "command": "uvx",
+          "args": [
+            "db-mcp",
+            "--password",
+            "SWB-FAKE-SECRET-0000"
+          ]
+        },
+        "scratch": {
+          "command": "scratch-a"
+        }
+      },
+      "disabledMcpServers": [
+        "search",
+        "plugin:helper:helper-api",
+        "claude.ai Gmail"
+      ],
+      "enabledMcpjsonServers": [],
+      "disabledMcpjsonServers": []
+    },
+    "__HOME__/work/beta": {
+      "mcpServers": {
+        "local-db": {
+          "command": "uvx",
+          "args": [
+            "db-mcp",
+            "--password",
+            "SWB-FAKE-SECRET-0000"
+          ]
+        },
+        "scratch": {
+          "command": "scratch-b"
+        }
+      },
+      "disabledMcpServers": [
+        "notes"
+      ]
+    },
+    "__HOME__/work/gone": {
+      "mcpServers": {
+        "ghost": {
+          "command": "ghost-mcp"
+        }
+      }
+    }
+  }
+}

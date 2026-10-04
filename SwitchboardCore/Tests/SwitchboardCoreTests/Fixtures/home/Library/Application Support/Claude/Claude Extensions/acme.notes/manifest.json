@@ -1,0 +1,1 @@
+{ "name": "notes-ext", "display_name": "Notes Extension", "server": { "type": "node", "mcp_config": { "command": "node" } } }

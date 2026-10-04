@@ -1,0 +1,1 @@
+{ "helper-api": { "type": "http", "url": "https://api.helper.test/mcp", "headers": { "X-Api-Key": "SWB-FAKE-SECRET-0000" } } }

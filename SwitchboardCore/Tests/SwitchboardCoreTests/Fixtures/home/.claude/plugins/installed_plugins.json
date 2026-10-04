@@ -1,0 +1,4 @@
+{ "version": 2, "plugins": {
+  "helper@market": [{ "scope": "user", "installPath": "__HOME__/.claude/plugins/cache/market/helper/1.0.0", "version": "1.0.0" }],
+  "styler@market": [{ "scope": "user", "installPath": "__HOME__/.claude/plugins/cache/market/styler/2.0.0", "version": "2.0.0" }]
+} }

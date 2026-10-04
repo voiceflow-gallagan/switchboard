@@ -1,0 +1,22 @@
+{
+  "preferences": { "theme": "dark" },
+  "mcpServers": {
+    "remote-notes": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://Notes.Example.test/mcp/?token=SWB-FAKE-SECRET-0000", "--header", "Authorization: Bearer SWB-FAKE-SECRET-0000"]
+    },
+    "files": {
+      "command": "/usr/local/bin/npx",
+      "args": ["-y", "@acme/files-server@1.2.0", "/srv/share"],
+      "env": { "FILES_TOKEN": "SWB-FAKE-SECRET-kept-desktop" }
+    },
+    "tracker": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-e", "TRACKER_KEY=SWB-FAKE-SECRET-0000", "acme/tracker"]
+    },
+    "browser": {
+      "command": "/opt/tools/browser-mcp",
+      "args": ["--wsEndpoint=wss://agent:SWB-FAKE-SECRET-0000@browser.example.test/run?key=SWB-FAKE-SECRET-0000", "--wsHeaders={\"Authorization\":\"Bearer SWB-FAKE-SECRET-0000\"}", "--extraHeader=X-Session: Bearer SWB-FAKE-SECRET-0000"]
+    }
+  }
+}
