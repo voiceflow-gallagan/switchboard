@@ -6,6 +6,21 @@
     <description>Releases of Switchboard, newest first.</description>
     <language>en</language>
     <item>
+      <title>Switchboard 0.3.1</title>
+      <pubDate>Sun, 04 Oct 2026 22:53:01 +0200</pubDate>
+      <sparkle:version>202610042251</sparkle:version>
+      <sparkle:shortVersionString>0.3.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <link>https://github.com/voiceflow-gallagan/switchboard/releases/tag/v0.3.1</link>
+      <description><![CDATA[
+<h2>What's new</h2>
+<ul>
+<li>Nothing visible. This release exists so that 0.3.0 can prove it finds, downloads, and installs an update on its own.</li>
+</ul>
+      ]]></description>
+      <enclosure url="https://github.com/voiceflow-gallagan/switchboard/releases/download/v0.3.1/Switchboard-0.3.1.zip" sparkle:edSignature="MV5HLCSSx5ClSHwGtlF0xY0uOW+0FXonQYl6LBmYuATOkkgnIVr+u72OBDLD8H1yiAjw5l0V6lo+Zcssu6nOBQ==" length="3583149" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Switchboard 0.3.0</title>
       <pubDate>Sun, 04 Oct 2026 22:50:38 +0200</pubDate>
       <sparkle:version>202610042249</sparkle:version>
