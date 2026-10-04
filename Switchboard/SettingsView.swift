@@ -32,7 +32,7 @@ enum DockIcon {
   static let hiddenKey = "hidesDockIcon"
 
   /// A hidden Dock icon also hides the menu bar; the menu bar item is then the only way in.
-  static func apply(hidden: Bool) {
+  @MainActor static func apply(hidden: Bool) {
     NSApp.setActivationPolicy(hidden ? .accessory : .regular)
   }
 }

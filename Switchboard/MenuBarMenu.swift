@@ -80,16 +80,16 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     menu.addItem(action("Quit Switchboard", #selector(quit), key: "q"))
   }
 
-  /// Activates first: a click on a status item does not activate the app by itself, and a
-  /// window opened by an inactive app stays behind the others.
+  /// Activates first and orders the window front regardless: a click on a status item does not
+  /// activate the app by itself, and a window opened by an inactive app stays behind the others.
   @objc private func open() {
-    NSRunningApplication.current.activate(options: .activateIgnoringOtherApps)
+    NSApp.activate()
     openWindow()
     Self.mainWindow?.orderFrontRegardless()
   }
 
   @objc private func settings() {
-    NSRunningApplication.current.activate(options: .activateIgnoringOtherApps)
+    NSApp.activate()
     openSettings()
   }
 
