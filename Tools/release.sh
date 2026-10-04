@@ -32,6 +32,18 @@ fi
 NOTARY_PROFILE="switchboard"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$ROOT/.build/release"
+APPCAST="$ROOT/appcast.xml"
+
+# The feed is signed with a key Sparkle keeps in the login keychain. Without it, installed copies
+# would refuse the update, so stop before building anything.
+SIGN_UPDATE="$(find "$ROOT/.build" -type f -path "*/artifacts/sparkle/Sparkle/bin/sign_update" -print -quit)"
+[ -n "$SIGN_UPDATE" ] || { echo "sign_update not found; build the app once so the Sparkle package is resolved" >&2; exit 1; }
+GENERATE_KEYS="$(dirname "$SIGN_UPDATE")/generate_keys"
+PUBLIC_KEY="$("$GENERATE_KEYS" -p 2>/dev/null || true)"
+[ -n "$PUBLIC_KEY" ] || { echo "No Sparkle signing key in the login keychain. Restore it from the backup." >&2; exit 1; }
+grep -Fq "<string>$PUBLIC_KEY</string>" "$ROOT/Switchboard/Info.plist" \
+  || { echo "The signing key in the keychain does not match SUPublicEDKey in Switchboard/Info.plist" >&2; exit 1; }
+grep -q "<language>en</language>" "$APPCAST" || { echo "appcast.xml is missing or has no channel header" >&2; exit 1; }
 ARCHIVE="$OUT/Switchboard.xcarchive"
 EXPORT_DIR="$OUT/export"
 APP="$EXPORT_DIR/Switchboard.app"
@@ -41,7 +53,7 @@ BUILD_NUMBER="$(date +%Y%m%d%H%M)"
 
 cd "$ROOT"
 
-echo "[1/9] Checking the development repository is clean"
+echo "[1/10] Checking the development repository is clean"
 DIRTY="$(git status --porcelain)"
 if [ -n "$DIRTY" ] && [ "$ALLOW_DIRTY" -eq 0 ]; then
   echo "Uncommitted changes present; commit them or pass --allow-dirty" >&2
@@ -52,7 +64,7 @@ fi
 rm -rf "$OUT"
 mkdir -p "$OUT"
 
-echo "[2/9] Archiving Release build $VERSION ($BUILD_NUMBER)"
+echo "[2/10] Archiving Release build $VERSION ($BUILD_NUMBER)"
 xcodebuild archive \
   -project Switchboard.xcodeproj \
   -scheme Switchboard \
@@ -63,7 +75,7 @@ xcodebuild archive \
   CURRENT_PROJECT_VERSION="$BUILD_NUMBER" \
   -quiet
 
-echo "[3/9] Exporting the archive with Developer ID signing"
+echo "[3/10] Exporting the archive with Developer ID signing"
 cat > "$OUT/ExportOptions.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -84,7 +96,7 @@ xcodebuild -exportArchive \
   -exportPath "$EXPORT_DIR" \
   -quiet
 
-echo "[4/9] Verifying the code signature"
+echo "[4/10] Verifying the code signature"
 codesign --verify --deep --strict --verbose=2 "$APP"
 SIGN_INFO="$(codesign -dvv "$APP" 2>&1)"
 echo "$SIGN_INFO" | grep -q "Authority=Developer ID Application" \
@@ -93,10 +105,10 @@ echo "$SIGN_INFO" | grep -q "flags=0x10000(runtime)" \
   || { echo "Hardened runtime flag missing" >&2; exit 1; }
 echo "$SIGN_INFO" | grep -E "Authority=Developer ID Application|flags="
 
-echo "[5/9] Zipping the app"
+echo "[5/10] Zipping the app"
 ditto -c -k --keepParent "$APP" "$ZIP"
 
-echo "[6/9] Submitting to Apple notarization (this can take several minutes)"
+echo "[6/10] Submitting to Apple notarization (this can take several minutes)"
 SUBMIT_OUT="$(xcrun notarytool submit "$ZIP" --keychain-profile "$NOTARY_PROFILE" --wait 2>&1)" || true
 echo "$SUBMIT_OUT"
 SUBMISSION_ID="$(echo "$SUBMIT_OUT" | awk '/^ *id:/ {print $2; exit}')"
@@ -107,20 +119,20 @@ if [ "$STATUS" != "Accepted" ]; then
   exit 1
 fi
 
-echo "[7/9] Stapling the ticket and re-zipping"
+echo "[7/10] Stapling the ticket and re-zipping"
 xcrun stapler staple "$APP"
 xcrun stapler validate "$APP"
 rm -f "$ZIP"
 ditto -c -k --keepParent "$APP" "$ZIP"
 
-echo "[8/9] Assessing with Gatekeeper"
+echo "[8/10] Assessing with Gatekeeper"
 SPCTL_OUT="$(spctl --assess --type execute --verbose "$APP" 2>&1)"
 echo "$SPCTL_OUT"
 echo "$SPCTL_OUT" | grep -q "accepted" || { echo "Gatekeeper did not accept the app" >&2; exit 1; }
 echo "$SPCTL_OUT" | grep -q "source=Notarized Developer ID" \
   || { echo "Source is not Notarized Developer ID" >&2; exit 1; }
 
-echo "[9/9] Creating GitHub release v$VERSION on $REPO"
+echo "[9/10] Creating GitHub release v$VERSION on $REPO"
 {
   cat "$WHATS_NEW"
   echo
@@ -138,4 +150,15 @@ gh release create "v$VERSION" "$ZIP" \
   --title "Switchboard $VERSION" \
   --notes-file "$NOTES"
 
+echo "[10/10] Adding the release to appcast.xml"
+ITEM="$OUT/appcast-item-$VERSION.xml"
+"$ROOT/Tools/appcast-item.sh" "$VERSION" "$BUILD_NUMBER" "$ZIP" "$WHATS_NEW" --repo "$REPO" > "$ITEM"
+awk -v item="$ITEM" '
+  { print }
+  /<language>en<\/language>/ && !done { while ((getline line < item) > 0) print line; done = 1 }
+' "$APPCAST" > "$APPCAST.new"
+xmllint --noout "$APPCAST.new"
+mv "$APPCAST.new" "$APPCAST"
+
 echo "Done: https://github.com/$REPO/releases/tag/v$VERSION"
+echo "appcast.xml has the new entry. Commit it and publish, or installed copies will not see this release."

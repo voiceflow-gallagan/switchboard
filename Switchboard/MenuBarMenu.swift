@@ -6,13 +6,14 @@ import SwitchboardCore
 ///
 /// A click opens the window, or closes it when it is already in front. A right click, or a
 /// control click, shows the total, one line per owner, when it was sampled, then Open, Settings,
-/// and Quit. SwiftUI's own menu bar item cannot tell a click from a menu request, so this one is
+/// Check for Updates, and Quit. SwiftUI's own menu bar item cannot tell a click from a menu request, so this one is
 /// built with AppKit.
 @MainActor
 final class StatusItemController: NSObject, NSMenuDelegate {
   private let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
   private let menu = NSMenu()
   private let usage: UsageStore
+  private let updater: Updater
   var openWindow: @MainActor () -> Void = StatusItemController.showExistingWindow
   var openSettings: @MainActor () -> Void = {}
 
@@ -25,8 +26,9 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     NSApp.windows.first { $0.identifier?.rawValue.hasPrefix("main") == true }
   }
 
-  init(usage: UsageStore) {
+  init(usage: UsageStore, updater: Updater) {
     self.usage = usage
+    self.updater = updater
     super.init()
     menu.delegate = self
     if let button = item.button {
@@ -77,6 +79,11 @@ final class StatusItemController: NSObject, NSMenuDelegate {
     menu.addItem(.separator())
     menu.addItem(action("Open Switchboard", #selector(open), key: ""))
     menu.addItem(action("Settings…", #selector(settings), key: ","))
+    if updater.isEnabled {
+      let check = action("Check for Updates…", #selector(checkForUpdates), key: "")
+      check.isEnabled = updater.canCheck
+      menu.addItem(check)
+    }
     menu.addItem(action("Quit Switchboard", #selector(quit), key: "q"))
   }
 
@@ -91,6 +98,10 @@ final class StatusItemController: NSObject, NSMenuDelegate {
   @objc private func settings() {
     NSApp.activate()
     openSettings()
+  }
+
+  @objc private func checkForUpdates() {
+    updater.check()
   }
 
   @objc private func quit() {

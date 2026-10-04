@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B0000000000000000000010 /* SwitchboardCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5B0000000000000000000011 /* SwitchboardCore */; };
+		5B0000000000000000000013 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 5B0000000000000000000014 /* Sparkle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B0000000000000000000010 /* SwitchboardCore in Frameworks */,
+				5B0000000000000000000013 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +75,7 @@
 			name = Switchboard;
 			packageProductDependencies = (
 				5B0000000000000000000011 /* SwitchboardCore */,
+				5B0000000000000000000014 /* Sparkle */,
 			);
 			productName = Switchboard;
 			productReference = 5B0000000000000000000020 /* Switchboard.app */;
@@ -104,6 +107,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5B0000000000000000000012 /* XCLocalSwiftPackageReference "SwitchboardCore" */,
+				5B0000000000000000000015 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5B0000000000000000000051 /* Products */;
@@ -193,13 +197,14 @@
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Switchboard/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.2.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.gallagan.switchboard;
 				PRODUCT_NAME = Switchboard;
@@ -218,13 +223,14 @@
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Switchboard/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.2.0;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				PRODUCT_BUNDLE_IDENTIFIER = fr.gallagan.switchboard;
 				PRODUCT_NAME = Switchboard;
@@ -262,7 +268,23 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		5B0000000000000000000015 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 2.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		5B0000000000000000000014 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B0000000000000000000015 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
 		5B0000000000000000000011 /* SwitchboardCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5B0000000000000000000012 /* XCLocalSwiftPackageReference "SwitchboardCore" */;

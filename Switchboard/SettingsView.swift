@@ -38,19 +38,49 @@ enum DockIcon {
 }
 
 struct SettingsView: View {
+  @Bindable var updater: Updater
   @AppStorage(Appearance.key) private var appearance = Appearance.system
   @AppStorage(DockIcon.hiddenKey) private var hidesDockIcon = false
 
   var body: some View {
     Form {
-      Picker("Appearance", selection: $appearance) {
-        ForEach(Appearance.allCases) { Text($0.title) }
+      Section {
+        Picker("Appearance", selection: $appearance) {
+          ForEach(Appearance.allCases) { Text($0.title) }
+        }
+        .pickerStyle(.segmented)
+        Toggle("Hide the Dock icon", isOn: $hidesDockIcon)
+        Text("Switchboard stays in the menu bar. Open it and its settings from there.")
+          .font(.caption)
+          .foregroundStyle(.secondary)
       }
-      .pickerStyle(.segmented)
-      Toggle("Hide the Dock icon", isOn: $hidesDockIcon)
-      Text("Switchboard stays in the menu bar. Open it and its settings from there.")
-        .font(.caption)
-        .foregroundStyle(.secondary)
+      Section("Updates") {
+        LabeledContent("Version", value: Updater.version)
+        if let notes = Updater.releaseNotes {
+          Link("What changed in this version", destination: notes)
+        }
+        if updater.isEnabled {
+          Toggle("Check for updates automatically", isOn: $updater.checksAutomatically)
+          Toggle("Install updates automatically", isOn: $updater.installsAutomatically)
+          LabeledContent {
+            Button("Check Now") { updater.check() }
+              .disabled(!updater.canCheck)
+          } label: {
+            Text("Last checked")
+            Text(
+              updater.lastCheck.map { $0.formatted(date: .abbreviated, time: .shortened) }
+                ?? "Never"
+            )
+            .foregroundStyle(.secondary)
+          }
+          Text("Updates come from this app's GitHub releases. Nothing else is sent.")
+            .font(.caption)
+            .foregroundStyle(.secondary)
+        } else {
+          Text("Updates are off in debug builds and in test mode.")
+            .foregroundStyle(.secondary)
+        }
+      }
     }
     .formStyle(.grouped)
     .frame(width: 400)

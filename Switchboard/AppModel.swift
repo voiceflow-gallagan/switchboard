@@ -17,6 +17,7 @@ final class AppModel {
   let store: InventoryStore
   let usage: UsageStore
   let switches: SwitchStore
+  let updater: Updater
   /// Whether the window is on screen. Sampling is fast and the glow moves only then.
   private(set) var isWindowVisible = false
   private var sampling: Task<Void, Never>?
@@ -26,6 +27,11 @@ final class AppModel {
     store = InventoryStore(paths: paths)
     usage = UsageStore(paths: paths)
     switches = SwitchStore(paths: paths, inventoryStore: store)
+    #if DEBUG
+      updater = Updater(isEnabled: false)
+    #else
+      updater = Updater(isEnabled: !paths.isTestHome)
+    #endif
   }
 
   /// Reads the configuration and the saved measurements, then starts sampling. Runs once.

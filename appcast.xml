@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Switchboard</title>
+    <link>https://github.com/voiceflow-gallagan/switchboard</link>
+    <description>Releases of Switchboard, newest first.</description>
+    <language>en</language>
+    <item>
+      <title>Switchboard 0.2.0</title>
+      <pubDate>Sat, 04 Oct 2026 20:11:59 +0000</pubDate>
+      <sparkle:version>202610042210</sparkle:version>
+      <sparkle:shortVersionString>0.2.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <link>https://github.com/voiceflow-gallagan/switchboard/releases/tag/v0.2.0</link>
+      <description><![CDATA[
+<h2>What's new</h2>
+<ul>
+<li><b>Settings screen</b> (Command-comma, or Settings… in the menu bar item's menu): choose the light, dark, or system appearance, and hide the Dock icon. With the icon hidden, Switchboard lives in the menu bar only.</li>
+<li><b>Menu bar item click</b>: a click opens the window, or closes it when it is already in front. A right click or control click shows the memory menu with the total, one line per app, Open, Settings, and Quit.</li>
+</ul>
+<h2>Fixes</h2>
+<ul>
+<li>The window now comes to the front when opened from the menu bar item while another app is active.</li>
+</ul>
+      ]]></description>
+      <enclosure url="https://github.com/voiceflow-gallagan/switchboard/releases/download/v0.2.0/Switchboard-0.2.0.zip" sparkle:edSignature="KzRWrFYPf/7LLUDBPTe8vdtefTUbEVaah4c8QFxLZ//0uYUyJKFz3gC1RC30wPaJ54eCFY/8aq0It15RMGRVDQ==" length="2531657" type="application/octet-stream" />
+    </item>
+  </channel>
+</rss>

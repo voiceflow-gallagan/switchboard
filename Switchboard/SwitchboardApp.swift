@@ -5,7 +5,8 @@ struct SwitchboardApp: App {
   @NSApplicationDelegateAdaptor private var delegate: AppDelegate
   @AppStorage(Appearance.key) private var appearance = Appearance.system
   private let model = AppModel.shared
-  @State private var statusItem = StatusItemController(usage: AppModel.shared.usage)
+  @State private var statusItem = StatusItemController(
+    usage: AppModel.shared.usage, updater: AppModel.shared.updater)
 
   init() {
     AppModel.shared.start()
@@ -16,8 +17,14 @@ struct SwitchboardApp: App {
       MainWindow(model: model, statusItem: statusItem)
         .preferredColorScheme(appearance.colorScheme)
     }
+    .commands {
+      CommandGroup(after: .appInfo) {
+        Button("Check for Updates…") { model.updater.check() }
+          .disabled(!model.updater.canCheck)
+      }
+    }
     Settings {
-      SettingsView()
+      SettingsView(updater: model.updater)
     }
   }
 }

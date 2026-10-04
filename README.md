@@ -13,7 +13,7 @@ It exists because the same server often ends up configured in both apps, each ap
 - **Overview:** memory used by MCP servers right now, by app and by server, with a live chart of the last ten minutes, plus disk space used by plugins, extensions, and skills. The menu bar item shows the current total.
 - **Servers, Plugins, Skills:** one row per item, with its state in Claude Desktop, in Claude Code, and in the project you pick. Duplicates across the two apps are merged and marked.
 - **Removed:** servers taken out of a configuration, kept so they can be restored.
-- **Settings:** light or dark appearance, and whether the app shows a Dock icon. With the icon hidden, the menu bar item is the only way in.
+- **Settings:** light or dark appearance, whether the app shows a Dock icon, and updates: the installed version, a link to its notes, a Check Now button, and switches for checking and installing automatically. With the Dock icon hidden, the menu bar item is the only way in.
 
 ## What it can change
 
@@ -34,7 +34,9 @@ Every change is written through the same path: a backup first, then an edit that
 | Claude Code | `~/.claude.json`, `~/.claude/settings.json`, the installed plugins, and each project's `.claude/settings.local.json` |
 | Switchboard itself | `~/Library/Application Support/Switchboard/`: backups, kept servers, saved measurements |
 
-Switchboard's own folder is readable only by your account. Backups and kept servers contain whatever the original files contain, including credentials. The app never shows a credential value, never sends anything over the network, and starts no program other than Claude Code's own `claude plugin` commands.
+Switchboard's own folder is readable only by your account. Backups and kept servers contain whatever the original files contain, including credentials. The app never shows a credential value and starts no program other than Claude Code's own `claude plugin` commands.
+
+The only network use is the update check. On the second launch, the app asks whether it may check for new versions automatically. A check reads a small feed file from this repository on GitHub, and nothing about your Mac or your configuration is sent. Updates are downloaded from this repository's releases and installed only after the feed's signature and the app's own code signature both check out. Debug builds never check.
 
 ## Building it
 
@@ -74,6 +76,8 @@ A debug build has a test mode. When the environment variable `SWITCHBOARD_HOME` 
 | `SwitchboardCore/` | The library: reading both apps' configuration, matching running processes to servers, and every write path. All logic lives here and is tested |
 | `Switchboard/` | The SwiftUI app: views, stores, theme |
 | `Tools/make-icon.swift` | Draws the app icon at every size macOS needs |
+| `Tools/release.sh`, `Tools/appcast-item.sh` | Build, sign, notarize, and publish a release, and add it to the update feed |
+| `appcast.xml` | The update feed the app reads, newest release first |
 | `.claude/prds/` | The product requirements document: the problem, the users, the milestones |
 | `.claude/plans/` | One plan per milestone, with the decisions taken, the review findings, and the known limits |
 
@@ -93,7 +97,9 @@ These show the fixture home with invented memory and disk figures, not data from
 
 ## How releases are made
 
-Development happens in a private repository. It also holds the design documents. The `main` branch of this repository receives published snapshots, made by a script that lives in the private repository. A release is cut with `Tools/release.sh <version> --notes <file>`, where the file holds the What's new section of the release notes. It builds, signs with a Developer ID, notarizes, staples, and attaches the zip to a GitHub release here. Publish first, then release.
+Development happens in a private repository. It also holds the design documents. The `main` branch of this repository receives published snapshots, made by a script that lives in the private repository. A release is cut with `Tools/release.sh <version> --notes <file>`, where the file holds the What's new section of the release notes. It builds, signs with a Developer ID, notarizes, staples, attaches the zip to a GitHub release here, and adds a signed entry to `appcast.xml`. Publish first, then release, then publish again so the feed carries the new entry.
+
+The feed is signed with a Sparkle key that lives in the login keychain of the Mac that cuts releases, with its public half in `Switchboard/Info.plist`. The script refuses to run when the key is missing or does not match. If the private key were lost, installed copies could never update again; keep a backup of it outside that Mac.
 
 ## Known limits
 
