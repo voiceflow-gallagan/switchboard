@@ -13,6 +13,7 @@ It exists because the same server often ends up configured in both apps, each ap
 - **Overview:** memory used by MCP servers right now, by app and by server, with a live chart of the last ten minutes, plus disk space used by plugins, extensions, and skills. The menu bar item shows the current total.
 - **Servers, Plugins, Skills:** one row per item, with its state in Claude Desktop, in Claude Code, and in the project you pick. Duplicates across the two apps are merged and marked.
 - **Removed:** servers taken out of a configuration, kept so they can be restored.
+- **Settings:** light or dark appearance, and whether the app shows a Dock icon. With the icon hidden, the menu bar item is the only way in.
 
 ## What it can change
 

@@ -78,6 +78,10 @@ final class AppModel {
 
 /// Keeps the app running, with its menu bar item, after the window closes.
 final class AppDelegate: NSObject, NSApplicationDelegate {
+  func applicationWillFinishLaunching(_ notification: Notification) {
+    DockIcon.apply(hidden: UserDefaults.standard.bool(forKey: DockIcon.hiddenKey))
+  }
+
   func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
     false
   }
