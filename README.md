@@ -93,7 +93,7 @@ These show the fixture home with invented memory and disk figures, not data from
 
 ## How releases are made
 
-Development happens in a private repository. It also holds the design documents. The `main` branch of this repository receives published snapshots, made by a script that lives in the private repository. A release is cut with `Tools/release.sh <version>`. It builds, signs with a Developer ID, notarizes, staples, and attaches the zip to a GitHub release here. Publish first, then release.
+Development happens in a private repository. It also holds the design documents. The `main` branch of this repository receives published snapshots, made by a script that lives in the private repository. A release is cut with `Tools/release.sh <version> --notes <file>`, where the file holds the What's new section of the release notes. It builds, signs with a Developer ID, notarizes, staples, and attaches the zip to a GitHub release here. Publish first, then release.
 
 ## Known limits
 

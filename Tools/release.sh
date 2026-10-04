@@ -2,22 +2,26 @@
 set -euo pipefail
 
 usage() {
-  echo "usage: Tools/release.sh <version> [--repo owner/name] [--allow-dirty]" >&2
+  echo "usage: Tools/release.sh <version> --notes <file> [--repo owner/name] [--allow-dirty]" >&2
+  echo "  <file> holds the What's new section for this version, in Markdown." >&2
   exit 64
 }
 
 VERSION=""
 REPO="voiceflow-gallagan/switchboard"
 ALLOW_DIRTY=0
+WHATS_NEW=""
 while [ $# -gt 0 ]; do
   case "$1" in
     --repo) [ $# -ge 2 ] || usage; REPO="$2"; shift 2 ;;
+    --notes) [ $# -ge 2 ] || usage; WHATS_NEW="$2"; shift 2 ;;
     --allow-dirty) ALLOW_DIRTY=1; shift ;;
     -*) usage ;;
     *) [ -z "$VERSION" ] || usage; VERSION="$1"; shift ;;
   esac
 done
 [ -n "$VERSION" ] || usage
+[ -n "$WHATS_NEW" ] && [ -s "$WHATS_NEW" ] || { echo "--notes must name a non-empty file" >&2; usage; }
 
 # The team comes from the ignored Config/Local.xcconfig, never from this script.
 TEAM_ID="$(sed -n 's/^[[:space:]]*DEVELOPMENT_TEAM[[:space:]]*=[[:space:]]*\([A-Z0-9]*\).*/\1/p' Config/Local.xcconfig 2>/dev/null | head -1)"
@@ -117,7 +121,10 @@ echo "$SPCTL_OUT" | grep -q "source=Notarized Developer ID" \
   || { echo "Source is not Notarized Developer ID" >&2; exit 1; }
 
 echo "[9/9] Creating GitHub release v$VERSION on $REPO"
-cat > "$NOTES" <<NOTES_EOF
+{
+  cat "$WHATS_NEW"
+  echo
+  cat <<NOTES_EOF
 Switchboard shows everything Claude Desktop and Claude Code load on your Mac in one window: MCP servers, plugins, and skills.
 It reports what each server costs in memory and lets you switch items on or off per app or per project.
 
@@ -125,6 +132,7 @@ Requires macOS 14 or later.
 
 Install: unzip Switchboard-$VERSION.zip, drag Switchboard to Applications, then open it.
 NOTES_EOF
+} > "$NOTES"
 gh release create "v$VERSION" "$ZIP" \
   --repo "$REPO" \
   --title "Switchboard $VERSION" \
