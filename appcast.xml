@@ -6,6 +6,25 @@
     <description>Releases of Switchboard, newest first.</description>
     <language>en</language>
     <item>
+      <title>Switchboard 0.3.0</title>
+      <pubDate>Sun, 04 Oct 2026 22:50:38 +0200</pubDate>
+      <sparkle:version>202610042249</sparkle:version>
+      <sparkle:shortVersionString>0.3.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <link>https://github.com/voiceflow-gallagan/switchboard/releases/tag/v0.3.0</link>
+      <description><![CDATA[
+<h2>What's new</h2>
+<ul>
+<li><b>Automatic updates.</b> Switchboard now checks its GitHub releases for new versions and installs them. On the second launch it asks once whether it may check automatically. Each update is verified against the feed's signature and the app's own code signature before it replaces the app.</li>
+<li><b>Updates in Settings.</b> The installed version, a link to its notes, a Check Now button, when the last check ran, and switches for checking and installing automatically. Check for Updates is also in the app menu and the menu bar item's menu.</li>
+</ul>
+<p>
+This is the first version that can update itself. Copies of 0.1.0 and 0.2.0 must be replaced by hand once.
+</p>
+      ]]></description>
+      <enclosure url="https://github.com/voiceflow-gallagan/switchboard/releases/download/v0.3.0/Switchboard-0.3.0.zip" sparkle:edSignature="fSWBBmHSI3IjaD4zHwaW7oxLMNLvMQnTbwqe3BhyWRgiNjGJER2BVYz4qFVv+m/m2W4lO7sNQOqlwFhMI8CRDw==" length="3583161" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Switchboard 0.2.0</title>
       <pubDate>Sat, 04 Oct 2026 20:11:59 +0000</pubDate>
       <sparkle:version>202610042210</sparkle:version>
