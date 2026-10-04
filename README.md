@@ -2,6 +2,8 @@
 
 Switchboard is a macOS app that shows everything Claude Desktop and Claude Code load on your Mac, in one window: MCP servers, plugins, and skills. It tells you what each server costs in memory, lets you switch things on and off per app or per project, and lets you add, copy, and remove servers without editing JSON by hand.
 
+**Download:** get the latest build from the [releases page](https://github.com/voiceflow-gallagan/switchboard/releases). It needs macOS 14 or later. Unzip it and drag Switchboard to Applications.
+
 ![The Overview in dark mode: total MCP server memory with a live chart, memory by owner, the most expensive servers, and disk use.](docs/screenshots/overview-dark.png)
 
 It exists because the same server often ends up configured in both apps, each app keeps its settings in a different place, and a dozen servers running twice can take gigabytes of memory without anyone noticing.
