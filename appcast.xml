@@ -6,6 +6,21 @@
     <description>Releases of Switchboard, newest first.</description>
     <language>en</language>
     <item>
+      <title>Switchboard 0.3.2</title>
+      <pubDate>Mon, 05 Oct 2026 19:51:33 +0200</pubDate>
+      <sparkle:version>202610051949</sparkle:version>
+      <sparkle:shortVersionString>0.3.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <link>https://github.com/voiceflow-gallagan/switchboard/releases/tag/v0.3.2</link>
+      <description><![CDATA[
+<h2>Fixes</h2>
+<ul>
+<li><b>The memory chart was empty after the window had been closed.</b> The chart now draws the samples taken in the background for the menu bar item, so it is filled as soon as the window opens. Only a real pause, such as the Mac sleeping, leaves a gap.</li>
+</ul>
+      ]]></description>
+      <enclosure url="https://github.com/voiceflow-gallagan/switchboard/releases/download/v0.3.2/Switchboard-0.3.2.zip" sparkle:edSignature="eA7f8proi409InuA5kJeFBQo6+II5gwS2bWItKgM5Rw5X38EjYz9rYehzU9M+OrpJOFa9oM3R2+05DaHzUWsCQ==" length="3583212" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Switchboard 0.3.1</title>
       <pubDate>Sun, 04 Oct 2026 22:53:01 +0200</pubDate>
       <sparkle:version>202610042251</sparkle:version>
