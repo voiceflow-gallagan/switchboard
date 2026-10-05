@@ -38,6 +38,16 @@ import Testing
     #expect(offsets == [[0, 5, 20], [36, 41]])
   }
 
+  @Test func samplesAtTheClosedWindowRateStayInOneSegment() {
+    var history = MemoryHistory()
+    for seconds in stride(from: 0.0, through: 300, by: 31) {
+      history.append(sample(seconds, [.desktop: 1]))
+    }
+    #expect(history.segments.count == 1)
+    history.append(sample(400, [.desktop: 1]))
+    #expect(history.segments.count == 2)
+  }
+
   @Test func pointsFillMissingOwnersWithZeroWithinASegmentOnly() {
     var history = MemoryHistory(maximumGap: 15)
     history.append(sample(0, [.desktop: 10]))

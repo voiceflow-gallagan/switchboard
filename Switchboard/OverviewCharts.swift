@@ -3,7 +3,7 @@ import SwiftUI
 import SwitchboardCore
 
 /// MCP server memory over the last minutes, stacked per owner. Each run of samples is its own
-/// series, so nothing is drawn across the time the window was hidden.
+/// series, so nothing is drawn across a pause in sampling, such as the Mac sleeping.
 struct LiveMemoryChart: View {
   let history: MemoryHistory
   @Environment(\.accessibilityReduceMotion) private var reduceMotion

@@ -26,7 +26,9 @@ public struct MemoryHistory: Sendable {
   }
 
   public static let defaultSpan: TimeInterval = 600
-  public static let defaultMaximumGap: TimeInterval = 15
+  /// Twice the 30 seconds between samples while the window is closed, so those samples join into
+  /// one run and only a real pause, such as sleep, leaves a gap.
+  public static let defaultMaximumGap: TimeInterval = 60
 
   public let span: TimeInterval
   /// Two samples further apart than this belong to different segments.
