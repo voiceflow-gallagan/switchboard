@@ -6,6 +6,25 @@
     <description>Releases of Switchboard, newest first.</description>
     <language>en</language>
     <item>
+      <title>Switchboard 0.3.3</title>
+      <pubDate>Wed, 07 Oct 2026 00:43:20 +0200</pubDate>
+      <sparkle:version>202610062341</sparkle:version>
+      <sparkle:shortVersionString>0.3.3</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <link>https://github.com/voiceflow-gallagan/switchboard/releases/tag/v0.3.3</link>
+      <description><![CDATA[
+<h2>What's new</h2>
+<ul>
+<li><b>Safer updates.</b> An update's signature is now checked before the download is unpacked, so a download with a bad signature is never opened.</li>
+<li><b>Accurate privacy wording.</b> The README and the Settings screen now say what an update check reveals: GitHub sees your IP address and the app's version, and nothing about your configuration is sent.</li>
+</ul>
+<p>
+Copies of 0.3.2 and earlier get the safer check from this update on.
+</p>
+      ]]></description>
+      <enclosure url="https://github.com/voiceflow-gallagan/switchboard/releases/download/v0.3.3/Switchboard-0.3.3.zip" sparkle:edSignature="CdvY8Wvc8YsemRM4pA7jx0SfAWjDPUGqptAr4jOtKNtlxmIU4QS9grKX1oFpuDRlyOcN4nOh1c529z8fSjIkBA==" length="3583219" type="application/octet-stream" />
+    </item>
+    <item>
       <title>Switchboard 0.3.2</title>
       <pubDate>Mon, 05 Oct 2026 19:51:33 +0200</pubDate>
       <sparkle:version>202610051949</sparkle:version>
