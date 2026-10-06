@@ -36,7 +36,7 @@ Every change is written through the same path: a backup first, then an edit that
 
 Switchboard's own folder is readable only by your account. Backups and kept servers contain whatever the original files contain, including credentials. The app never shows a credential value and starts no program other than Claude Code's own `claude plugin` commands.
 
-The only network use is the update check. On the second launch, the app asks whether it may check for new versions automatically. A check reads a small feed file from this repository on GitHub, and nothing about your Mac or your configuration is sent. Updates are downloaded from this repository's releases and installed only after the feed's signature and the app's own code signature both check out. Debug builds never check.
+The only network use is the update check. On the second launch, the app asks whether it may check for new versions automatically. A check reads a small feed file from this repository on GitHub. As with any download, GitHub sees your IP address and the app's version. Nothing about your configuration is sent. Updates are downloaded from this repository's releases. The download's signature is checked against the key built into the app before it is unpacked, and the app's own code signature is checked again before it is installed. Debug builds never check.
 
 ## Building it
 

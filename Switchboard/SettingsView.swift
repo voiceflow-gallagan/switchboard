@@ -73,9 +73,11 @@ struct SettingsView: View {
             )
             .foregroundStyle(.secondary)
           }
-          Text("Updates come from this app's GitHub releases. Nothing else is sent.")
-            .font(.caption)
-            .foregroundStyle(.secondary)
+          Text(
+            "Updates come from this app's GitHub releases. GitHub sees your IP address and this app's version."
+          )
+          .font(.caption)
+          .foregroundStyle(.secondary)
         } else {
           Text("Updates are off in debug builds and in test mode.")
             .foregroundStyle(.secondary)

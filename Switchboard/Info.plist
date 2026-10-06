@@ -4,6 +4,8 @@
 <dict>
 	<key>SUFeedURL</key>
 	<string>https://raw.githubusercontent.com/voiceflow-gallagan/switchboard/main/appcast.xml</string>
+	<key>SUVerifyUpdateBeforeExtraction</key>
+	<true/>
 	<key>SUPublicEDKey</key>
 	<string>TbLtDluzoV1GMQ8rALpYYb3aMZQ0kpCdGv2RIoRb2NU=</string>
 </dict>
